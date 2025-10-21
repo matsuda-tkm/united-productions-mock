@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: "Inter", "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  color: #1f2433;
+  
+  /* カスタムカラー変数 */
+  --color-primary: #059669;
+  --color-primary-hover: #047857;
+  --color-secondary: #d97706;
+  --color-secondary-hover: #b45309;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-focus: #3b82f6;
+  
+  /* カラフルデザイン用カラー */
+  --color-pink: #ff6b9d;
+  --color-magenta: #e91e63;
+  --color-purple: #9c27b0;
+  --color-blue: #2196f3;
+  --color-teal: #00bcd4;
+  --color-light-blue: #03a9f4;
+}
+
+body {
+  @apply bg-transparent text-neutral-900 antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+main {
+  @apply text-neutral-900;
+}
+
+/* フォーカス管理の改善 */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ボタンの基本スタイル */
+button {
+  @apply transition-all duration-200;
+  font-weight: 500;
+}
+
+/* リンクのスタイル */
+a {
+  @apply transition-colors duration-200;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* スクリーンリーダー専用テキスト */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #000000;
+    --color-secondary: #000000;
+    --color-text-primary: #000000;
+    --color-text-secondary: #000000;
+    --color-border: #000000;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-background: #111827;
+    --color-surface: #1f2937;
+    --color-border: #374151;
+  }
+}
+
+/* アニメーション軽減設定 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* カスタムユーティリティクラス */
+.text-balance {
+  text-wrap: balance;
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* フォーカス可能要素の視覚的改善 */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+}
+
+/* 読みやすさの向上 */
+.readable-text {
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* インタラクティブ要素の改善 */
+.interactive {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.interactive:hover {
+  transform: translateY(-1px);
+}
+
+.interactive:active {
+  transform: translateY(0);
+}
+
+/* カラフルデザイン用スタイル */
+.colorful-background {
+  background: linear-gradient(135deg, 
+    var(--color-pink) 0%, 
+    var(--color-magenta) 20%, 
+    var(--color-purple) 40%, 
+    var(--color-blue) 60%, 
+    var(--color-teal) 80%, 
+    var(--color-light-blue) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.colorful-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 40% 70%, rgba(156, 39, 176, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(33, 150, 243, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 10% 80%, rgba(0, 188, 212, 0.5) 0%, transparent 50%);
+  animation: colorfulFloat 8s ease-in-out infinite;
+}
+
+@keyframes colorfulFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+.colorful-text-frame {
+  background: rgba(255, 255, 255, 0.95);
+  border: 4px solid white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
+}
+
+.colorful-text-frame h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.colorful-text-frame h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.1em;
+}
+
+.colorful-bottom-bar {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  position: relative;
+  z-index: 10;
+  margin-top: 1rem;
+}
+
+.colorful-bottom-bar h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: center;
+  position: relative;
+}
+
+.colorful-bottom-bar h3::before,
+.colorful-bottom-bar h3::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: white;
+}
+
+.colorful-bottom-bar h3::before {
+  left: -2rem;
+}
+
+.colorful-bottom-bar h3::after {
+  right: -2rem;
+}
+
+/* パーティクル効果 */
+.colorful-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.colorful-particles::before,
+.colorful-particles::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: particleFloat 6s linear infinite;
+}
+
+.colorful-particles::before {
+  background: var(--color-pink);
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.colorful-particles::after {
+  background: var(--color-teal);
+  top: 60%;
+  right: 15%;
+  animation-delay: 3s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+}
