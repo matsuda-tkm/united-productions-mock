@@ -1,6 +1,5 @@
-import { Calendar, ChevronDown, ChevronRight, ExternalLink, Files, Home, Palette, Plus, Search } from "lucide-react";
+import { Calendar, ChevronDown, ChevronRight, ExternalLink, Files, Palette, Plus, Search } from "lucide-react";
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 
 // Types
 type Section = {
@@ -386,18 +385,6 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
           </div>
         </div>
         <nav className="flex items-center gap-3" role="navigation" aria-label="メインナビゲーション">
-          <Link 
-            to="/programs" 
-            className={`text-sm font-medium transition-colors flex items-center gap-2 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-              theme === 'colorful' 
-                ? 'text-white hover:text-mste-electric-cyan hover:bg-mste-electric-cyan/10 focus:ring-mste-electric-cyan' 
-                : 'text-stone-700 hover:text-stone-900 hover:bg-stone-100 focus:ring-stone-500'
-            }`}
-            aria-label="番組管理ページへ移動"
-          >
-            <Home className="h-4 w-4" aria-hidden="true" />
-            番組管理
-          </Link>
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-stone-100 transition-colors">
             <Palette className={`h-4 w-4 ${theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-500'}`} aria-hidden="true" />
             <label htmlFor="theme-select" className="sr-only">テーマ選択</label>
