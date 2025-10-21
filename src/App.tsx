@@ -569,7 +569,7 @@ const Sidebar = ({
                               {/* サムネイル画像 */}
                               <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
                                 <img 
-                                  src="/src/assets/thumbnail/image.png" 
+                                  src="/assets/thumbnail/image.png" 
                                   alt={`${program.name}のサムネイル`}
                                   className="w-full h-full object-cover"
                                 />
@@ -963,7 +963,7 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
         <div 
           className="relative h-64 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/src/assets/thumbnail/image.png')`
+            backgroundImage: `url('/assets/thumbnail/image.png')`
           }}
         >
           <div className={`absolute inset-0 ${
