@@ -16,6 +16,10 @@ export type Section = {
 
 export type ColorTheme = 'green' | 'gold' | 'colorful' | 'colorful-light';
 
+export type ViewMode = 'list' | 'widget';
+
+export type WidgetSize = 'small' | 'medium' | 'large';
+
 export type Episode = {
   id: string;
   title: string;

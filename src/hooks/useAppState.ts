@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { mockStations } from '../data/mockData';
-import { ColorTheme } from '../types';
+import { ColorTheme, ViewMode } from '../types';
 
 export const useAppState = () => {
   const [selectedStation, setSelectedStation] = useState<string | null>(mockStations[0]?.id || null);
@@ -10,6 +10,7 @@ export const useAppState = () => {
   );
   const [showProgramPage, setShowProgramPage] = useState<boolean>(false);
   const [theme, setTheme] = useState<ColorTheme>('green');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
 
   const handleSelectEpisode = (stationId: string, programId: string, episodeId: string) => {
     setSelectedStation(stationId);
@@ -47,9 +48,11 @@ export const useAppState = () => {
     selectedEpisode,
     showProgramPage,
     theme,
+    viewMode,
     currentProgram,
     currentEpisode,
     setTheme,
+    setViewMode,
     handleSelectEpisode,
     handleSelectProgram,
     setSelectedEpisode,

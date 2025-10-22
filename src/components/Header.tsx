@@ -1,14 +1,16 @@
-import { Palette } from 'lucide-react';
+import { Grid3x3, List, Palette } from 'lucide-react';
 import React from 'react';
 import { colorThemes } from '../themes';
-import { ColorTheme } from '../types';
+import { ColorTheme, ViewMode } from '../types';
 
 interface HeaderProps {
   theme: ColorTheme;
+  viewMode: ViewMode;
   onThemeChange: (theme: ColorTheme) => void;
+  onViewModeChange: (mode: ViewMode) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ theme, onThemeChange }) => {
+export const Header: React.FC<HeaderProps> = ({ theme, viewMode, onThemeChange, onViewModeChange }) => {
   const currentTheme = colorThemes[theme];
   
   return (
@@ -73,6 +75,74 @@ export const Header: React.FC<HeaderProps> = ({ theme, onThemeChange }) => {
           </div>
         </div>
         <nav className="flex items-center gap-3" role="navigation" aria-label="メインナビゲーション">
+          {/* 表示モード切り替え */}
+          <div className={`flex items-center gap-1 p-1 ${
+            theme === 'gold' ? 'rounded-sm' : 'rounded-lg'
+          } ${
+            theme === 'colorful'
+              ? 'bg-mste-bg-dark/50 border border-mste-electric-cyan/30'
+              : theme === 'colorful-light'
+              ? 'bg-white/50 border border-mste-royal-blue/20'
+              : theme === 'gold'
+              ? 'bg-gold-100/50 border border-gold-300'
+              : 'bg-stone-100/50 border border-stone-300'
+          }`}>
+            <button
+              onClick={() => onViewModeChange('list')}
+              className={`flex items-center gap-1 px-3 py-1.5 ${
+                theme === 'gold' ? 'rounded-sm' : 'rounded-md'
+              } text-xs font-semibold transition-all ${
+                viewMode === 'list'
+                  ? theme === 'colorful'
+                    ? 'bg-mste-electric-cyan text-mste-bg-dark shadow-md'
+                    : theme === 'colorful-light'
+                    ? 'bg-mste-gradient text-white shadow-md'
+                    : theme === 'gold'
+                    ? 'bg-gold-500 text-white shadow-md'
+                    : 'bg-stone-600 text-white shadow-md'
+                  : theme === 'colorful'
+                    ? 'text-mste-electric-cyan/70 hover:text-mste-electric-cyan'
+                    : theme === 'colorful-light'
+                    ? 'text-mste-royal-blue/70 hover:text-mste-royal-blue'
+                    : theme === 'gold'
+                    ? 'text-gold-600 hover:text-gold-700'
+                    : 'text-stone-600 hover:text-stone-700'
+              }`}
+              aria-label="リスト表示"
+              aria-pressed={viewMode === 'list'}
+            >
+              <List className="h-4 w-4" />
+              <span>リスト</span>
+            </button>
+            <button
+              onClick={() => onViewModeChange('widget')}
+              className={`flex items-center gap-1 px-3 py-1.5 ${
+                theme === 'gold' ? 'rounded-sm' : 'rounded-md'
+              } text-xs font-semibold transition-all ${
+                viewMode === 'widget'
+                  ? theme === 'colorful'
+                    ? 'bg-mste-electric-cyan text-mste-bg-dark shadow-md'
+                    : theme === 'colorful-light'
+                    ? 'bg-mste-gradient text-white shadow-md'
+                    : theme === 'gold'
+                    ? 'bg-gold-500 text-white shadow-md'
+                    : 'bg-stone-600 text-white shadow-md'
+                  : theme === 'colorful'
+                    ? 'text-mste-electric-cyan/70 hover:text-mste-electric-cyan'
+                    : theme === 'colorful-light'
+                    ? 'text-mste-royal-blue/70 hover:text-mste-royal-blue'
+                    : theme === 'gold'
+                    ? 'text-gold-600 hover:text-gold-700'
+                    : 'text-stone-600 hover:text-stone-700'
+              }`}
+              aria-label="ウィジェット表示"
+              aria-pressed={viewMode === 'widget'}
+            >
+              <Grid3x3 className="h-4 w-4" />
+              <span>ウィジェット</span>
+            </button>
+          </div>
+
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-stone-100 transition-colors">
             <Palette className={`h-4 w-4 ${theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'}`} aria-hidden="true" />
             <label htmlFor="theme-select" className="sr-only">テーマ選択</label>
