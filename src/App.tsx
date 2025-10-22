@@ -56,7 +56,10 @@ function App() {
                 setSelectedEpisode(episodeId);
                 setShowProgramPage(false);
               }}
-              onBack={() => setShowProgramPage(false)}
+              onBack={() => {
+                setShowProgramPage(false);
+                setSelectedEpisode(null);
+              }}
             />
           ) : currentEpisode ? (
             // エピソード詳細ページ（ウィジェット形式）
