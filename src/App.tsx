@@ -18,7 +18,7 @@ type Section = {
   }>;
 };
 
-type ColorTheme = 'green' | 'gold' | 'colorful';
+type ColorTheme = 'green' | 'gold' | 'colorful' | 'colorful-light';
 
 const colorThemes = {
   green: {
@@ -47,6 +47,18 @@ const colorThemes = {
   },
   colorful: {
     name: 'カラフル',
+    primary: 'mste-electric-cyan',
+    primaryHover: 'mste-royal-blue',
+    primaryBg: 'bg-mste-gradient',
+    primaryBgHover: 'bg-mste-aurora',
+    accent: 'mste-electric-cyan',
+    accentHover: 'mste-hot-magenta',
+    accentBg: 'mste-highlight',
+    accentBorder: 'mste-electric-cyan',
+    accentText: 'mste-electric-cyan',
+  },
+  'colorful-light': {
+    name: 'カラフル（ライト）',
     primary: 'mste-electric-cyan',
     primaryHover: 'mste-royal-blue',
     primaryBg: 'bg-mste-gradient',
@@ -330,6 +342,8 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
       className={`fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-xl ${
         theme === 'colorful' 
           ? 'border-mste-electric-cyan/40 bg-mste-bg-dark/95 shadow-mste-glow' 
+          : theme === 'colorful-light'
+          ? 'border-mste-royal-blue/20 bg-gradient-to-r from-mste-electric-cyan/5 via-mste-royal-blue/5 to-mste-hot-magenta/5 shadow-lg'
           : theme === 'gold'
           ? 'border-gold-300/60 bg-gold-50/95'
           : 'border-stone-300/60 bg-white/95'
@@ -376,17 +390,17 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
           </div>
           <div>
-            <h1 className={`text-lg font-bold ${theme === 'colorful' ? 'text-white' : 'text-stone-900'}`}>
+            <h1 className={`text-lg font-bold ${theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue via-mste-grape-purple to-mste-hot-magenta bg-clip-text text-transparent' : 'text-stone-900'}`}>
               AD Copilot AI
             </h1>
-            <p className={`text-xs font-medium ${theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'}`}>
+            <p className={`text-xs font-medium ${theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'}`}>
               番組管理システム
             </p>
           </div>
         </div>
         <nav className="flex items-center gap-3" role="navigation" aria-label="メインナビゲーション">
           <div className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-stone-100 transition-colors">
-            <Palette className={`h-4 w-4 ${theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-500'}`} aria-hidden="true" />
+            <Palette className={`h-4 w-4 ${theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'}`} aria-hidden="true" />
             <label htmlFor="theme-select" className="sr-only">テーマ選択</label>
             <select 
               id="theme-select"
@@ -395,6 +409,8 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
               className={`text-sm font-medium bg-transparent border-none outline-none transition-colors cursor-pointer focus:ring-2 focus:ring-offset-2 ${
                 theme === 'colorful' 
                   ? 'text-white hover:text-mste-electric-cyan focus:ring-mste-electric-cyan' 
+                  : theme === 'colorful-light'
+                  ? 'text-mste-royal-blue hover:text-mste-hot-magenta focus:ring-mste-electric-cyan'
                   : 'text-stone-600 hover:text-stone-800 focus:ring-stone-500'
               }`}
               aria-label="カラーテーマを選択"
@@ -402,6 +418,7 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
               <option value="green">グリーン</option>
               <option value="gold">ゴールド</option>
               <option value="colorful">カラフル</option>
+              <option value="colorful-light">カラフル（ライト）</option>
             </select>
           </div>
           <button 
@@ -410,6 +427,8 @@ const Header = ({ theme, onThemeChange }: { theme: ColorTheme; onThemeChange: (t
             } px-5 py-2 text-sm font-semibold uppercase transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
               theme === 'colorful'
                 ? 'border border-mste-electric-cyan bg-mste-bg-dark text-mste-electric-cyan hover:bg-mste-electric-cyan hover:text-mste-bg-dark shadow-mste-glow focus:ring-mste-electric-cyan'
+                : theme === 'colorful-light'
+                ? 'border-2 border-transparent bg-mste-gradient text-white hover:opacity-90 shadow-lg focus:ring-mste-electric-cyan'
                 : theme === 'gold'
                 ? 'border border-gold-500 bg-gold-elegant text-gold-700 hover:border-gold-600 hover:bg-gold-luxury hover:text-white shadow-gold-sharp focus:ring-gold-500'
                 : 'border border-stone-400 bg-white hover:border-stone-600 hover:bg-stone-50 text-stone-700 focus:ring-stone-500'
@@ -469,6 +488,8 @@ const Sidebar = ({
       className={`fixed left-0 top-16 bottom-0 w-80 border-r overflow-y-auto ${
         theme === 'colorful'
           ? 'border-mste-electric-cyan/40 bg-mste-bg-dark/95 backdrop-blur-xl'
+          : theme === 'colorful-light'
+          ? 'border-mste-royal-blue/20 bg-gradient-to-b from-mste-electric-cyan/5 via-mste-royal-blue/5 to-mste-grape-purple/5 backdrop-blur-xl'
           : theme === 'gold'
           ? 'border-gold-300/60 bg-gold-50/95 backdrop-blur-xl'
           : 'border-stone-300/60 bg-white/95'
@@ -479,7 +500,7 @@ const Sidebar = ({
       <div className="p-5">
         <div className="mb-5">
           <h2 className={`text-sm font-bold uppercase mb-4 px-3 ${
-            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'gold' ? 'text-gold-700' : 'text-stone-600'
+            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue via-mste-grape-purple to-mste-hot-magenta bg-clip-text text-transparent' : theme === 'gold' ? 'text-gold-700' : 'text-stone-600'
           }`}>
             テレビ局・番組一覧
           </h2>
@@ -496,8 +517,8 @@ const Sidebar = ({
                     theme === 'gold' ? 'rounded-sm' : 'rounded-lg'
                   } text-left transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                     selectedStation === station.id 
-                      ? (theme === 'colorful' ? "bg-mste-electric-cyan/25 border border-mste-electric-cyan/60 shadow-sm focus:ring-mste-electric-cyan" : theme === 'gold' ? "bg-gold-200 border border-gold-400 shadow-gold-sharp focus:ring-gold-500" : "bg-stone-200 border border-stone-300 focus:ring-stone-500") 
-                      : (theme === 'colorful' ? "hover:bg-mste-electric-cyan/15 border border-transparent focus:ring-mste-electric-cyan" : theme === 'gold' ? "hover:bg-gold-100 border border-transparent focus:ring-gold-500" : "hover:bg-stone-100 border border-transparent focus:ring-stone-500")
+                      ? (theme === 'colorful' ? "bg-mste-electric-cyan/25 border border-mste-electric-cyan/60 shadow-sm focus:ring-mste-electric-cyan" : theme === 'colorful-light' ? "bg-mste-electric-cyan/10 border border-mste-electric-cyan/60 shadow-sm focus:ring-mste-electric-cyan" : theme === 'gold' ? "bg-gold-200 border border-gold-400 shadow-gold-sharp focus:ring-gold-500" : "bg-stone-200 border border-stone-300 focus:ring-stone-500") 
+                      : (theme === 'colorful' ? "hover:bg-mste-electric-cyan/15 border border-transparent focus:ring-mste-electric-cyan" : theme === 'colorful-light' ? "hover:bg-mste-electric-cyan/10 border border-transparent focus:ring-mste-electric-cyan" : theme === 'gold' ? "hover:bg-gold-100 border border-transparent focus:ring-gold-500" : "hover:bg-stone-100 border border-transparent focus:ring-stone-500")
                   }`}
                   aria-expanded={isStationExpanded}
                   aria-controls={`station-${station.id}-programs`}
@@ -505,16 +526,16 @@ const Sidebar = ({
                 >
                   {isStationExpanded ? (
                     <ChevronDown className={`h-4 w-4 flex-shrink-0 ${
-                      theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+                      theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
                     }`} />
                   ) : (
                     <ChevronRight className={`h-4 w-4 flex-shrink-0 ${
-                      theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+                      theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
                     }`} />
                   )}
                   <div className="flex-1 min-w-0">
                     <p className={`text-base font-bold truncate ${
-                      theme === 'colorful' ? 'text-white' : 'text-stone-900'
+                      theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-900'
                     }`}>
                       {station.name}
                     </p>
@@ -537,8 +558,8 @@ const Sidebar = ({
                                 theme === 'gold' ? 'rounded-sm' : 'rounded-lg'
                               } text-left transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                                 selectedProgram === program.id 
-                                  ? (theme === 'colorful' ? "bg-mste-electric-cyan/20 border border-mste-electric-cyan/50 shadow-sm focus:ring-mste-electric-cyan" : theme === 'gold' ? "bg-gold-150 border border-gold-400 shadow-gold-sharp focus:ring-gold-500" : "bg-stone-150 border border-stone-300 focus:ring-stone-500") 
-                                  : (theme === 'colorful' ? "hover:bg-mste-electric-cyan/12 border border-transparent focus:ring-mste-electric-cyan" : theme === 'gold' ? "hover:bg-gold-100 border border-transparent focus:ring-gold-500" : "hover:bg-stone-100 border border-transparent focus:ring-stone-500")
+                                  ? (theme === 'colorful' ? "bg-mste-electric-cyan/20 border border-mste-electric-cyan/50 shadow-sm focus:ring-mste-electric-cyan" : theme === 'colorful-light' ? "bg-mste-electric-cyan/10 border border-mste-electric-cyan/50 shadow-sm focus:ring-mste-electric-cyan" : theme === 'gold' ? "bg-gold-150 border border-gold-400 shadow-gold-sharp focus:ring-gold-500" : "bg-stone-150 border border-stone-300 focus:ring-stone-500") 
+                                  : (theme === 'colorful' ? "hover:bg-mste-electric-cyan/12 border border-transparent focus:ring-mste-electric-cyan" : theme === 'colorful-light' ? "hover:bg-mste-electric-cyan/8 border border-transparent focus:ring-mste-electric-cyan" : theme === 'gold' ? "hover:bg-gold-100 border border-transparent focus:ring-gold-500" : "hover:bg-stone-100 border border-transparent focus:ring-stone-500")
                               }`}
                               aria-expanded={isProgramExpanded}
                               aria-controls={`program-${program.id}-episodes`}
@@ -546,11 +567,11 @@ const Sidebar = ({
                             >
                               {isProgramExpanded ? (
                                 <ChevronDown className={`h-3.5 w-3.5 flex-shrink-0 ${
-                                  theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+                                  theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
                                 }`} />
                               ) : (
                                 <ChevronRight className={`h-3.5 w-3.5 flex-shrink-0 ${
-                                  theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+                                  theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
                                 }`} />
                               )}
                               {/* サムネイル画像 */}
@@ -563,12 +584,12 @@ const Sidebar = ({
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className={`text-sm font-semibold truncate ${
-                                  theme === 'colorful' ? 'text-white' : 'text-stone-800'
+                                  theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-800'
                                 }`}>
                                   {program.name}
                                 </p>
                                 <p className={`text-xs font-medium truncate ${
-                                  theme === 'colorful' ? 'text-mste-electric-cyan/80' : 'text-stone-500'
+                                  theme === 'colorful' ? 'text-mste-electric-cyan/80' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'
                                 }`}>
                                   {program.genre}
                                 </p>
@@ -588,11 +609,15 @@ const Sidebar = ({
                                         selectedEpisode === episode.id
                                           ? (theme === 'colorful' 
                                               ? "bg-mste-gradient text-white shadow-mste-glow border border-mste-electric-cyan/50 focus:ring-mste-electric-cyan" 
+                                              : theme === 'colorful-light'
+                                              ? "bg-mste-gradient text-white shadow-lg border border-mste-hot-magenta/50 focus:ring-mste-electric-cyan"
                                               : theme === 'gold'
                                               ? "bg-gold-luxury text-white shadow-gold-premium border border-gold-500 focus:ring-gold-500"
                                               : "bg-stone-800 text-white border border-stone-600 focus:ring-stone-500")
                                           : (theme === 'colorful' 
                                               ? "hover:bg-mste-electric-cyan/20 text-white hover:text-white border border-transparent hover:border-mste-electric-cyan/30 focus:ring-mste-electric-cyan" 
+                                              : theme === 'colorful-light'
+                                              ? "hover:bg-gradient-to-r hover:from-mste-electric-cyan/10 hover:to-mste-hot-magenta/10 text-mste-royal-blue hover:text-mste-grape-purple border border-transparent hover:border-mste-electric-cyan/30 focus:ring-mste-electric-cyan"
                                               : theme === 'gold'
                                               ? "hover:bg-gold-100 text-gold-700 border border-transparent hover:border-gold-300 focus:ring-gold-500"
                                               : "hover:bg-stone-100 text-stone-700 border border-transparent hover:border-stone-300 focus:ring-stone-500")
@@ -600,14 +625,14 @@ const Sidebar = ({
                                       aria-label={`${episode.date} ${episode.time}の放送回を選択`}
                                     >
                                       <Calendar className={`h-4 w-4 flex-shrink-0 ${
-                                        selectedEpisode === episode.id ? 'text-white' : (theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-500')
+                                        selectedEpisode === episode.id ? 'text-white' : (theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500')
                                       }`} aria-hidden="true" />
                                       <div className="flex-1 min-w-0">
                                         <p className={`text-sm font-semibold truncate`}>
                                           {episode.date}
                                         </p>
                                         <p className={`text-xs font-medium truncate ${
-                                          selectedEpisode === episode.id ? 'text-white/80' : (theme === 'colorful' ? 'text-mste-electric-cyan/80' : 'text-stone-500')
+                                          selectedEpisode === episode.id ? 'text-white/80' : (theme === 'colorful' ? 'text-mste-electric-cyan/80' : theme === 'colorful-light' ? 'text-mste-electric-cyan/70' : 'text-stone-500')
                                         }`}>
                                           {episode.time}
                                         </p>
@@ -655,11 +680,15 @@ const TabTrigger = ({
         isActive
           ? (theme === 'colorful'
               ? 'border-mste-electric-cyan bg-mste-gradient text-white shadow-mste-glow focus:ring-mste-electric-cyan'
+              : theme === 'colorful-light'
+              ? 'border-transparent bg-mste-gradient text-white shadow-lg focus:ring-mste-electric-cyan'
               : theme === 'gold'
               ? `border-${currentTheme.accent} ${currentTheme.primaryBg} text-white ${theme === 'gold' ? 'shadow-gold-luxury' : 'shadow-lg'} focus:ring-${currentTheme.accent}`
               : `border-${currentTheme.accent} bg-gradient-to-r ${currentTheme.primaryBg} text-white shadow-lg focus:ring-${currentTheme.accent}`)
           : (theme === 'colorful'
               ? "border-mste-electric-cyan/30 bg-mste-bg-dark/60 text-mste-electric-cyan hover:border-mste-electric-cyan hover:bg-mste-electric-cyan/20 hover:text-white focus:ring-mste-electric-cyan"
+              : theme === 'colorful-light'
+              ? "border-mste-electric-cyan/30 bg-white text-mste-royal-blue hover:border-mste-hot-magenta hover:bg-gradient-to-r hover:from-mste-electric-cyan/20 hover:to-mste-hot-magenta/20 hover:text-mste-hot-magenta focus:ring-mste-electric-cyan"
               : theme === 'gold'
               ? "border-gold-300 bg-gold-elegant text-gold-700 hover:border-gold-500 hover:bg-gold-luxury hover:text-white focus:ring-gold-500"
               : "border-stone-300 bg-white text-stone-600 hover:border-stone-500 hover:bg-stone-50 hover:text-stone-800 focus:ring-stone-500")
@@ -671,8 +700,8 @@ const TabTrigger = ({
       {count !== undefined && (
         <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
           isActive 
-            ? (theme === 'colorful' ? 'bg-white/20 text-white' : 'bg-white/20 text-white')
-            : (theme === 'colorful' ? 'bg-mste-electric-cyan/20 text-mste-electric-cyan' : 'bg-stone-200 text-stone-600')
+            ? (theme === 'colorful' || theme === 'colorful-light' ? 'bg-white/20 text-white' : 'bg-white/20 text-white')
+            : (theme === 'colorful' || theme === 'colorful-light' ? 'bg-mste-electric-cyan/20 text-mste-electric-cyan' : 'bg-stone-200 text-stone-600')
         }`}>
           {count}
         </span>
@@ -697,6 +726,8 @@ const SearchPanel = ({
     } border-2 ${
       theme === 'colorful'
         ? 'bg-mste-bg-dark/70 border-mste-electric-cyan/40 shadow-mste-glow backdrop-blur-xl'
+        : theme === 'colorful-light'
+        ? 'bg-gradient-to-br from-mste-electric-cyan/10 via-mste-royal-blue/10 to-mste-hot-magenta/10 border-mste-royal-blue/20 shadow-lg backdrop-blur-xl'
         : theme === 'gold'
         ? 'bg-gold-elegant border-gold-300'
         : 'bg-white border-stone-300'
@@ -705,7 +736,7 @@ const SearchPanel = ({
         <div className="flex w-full flex-col gap-4 md:flex-row">
           <div className="relative flex-1">
             <Search className={`pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 ${
-              theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-500'
+              theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'
             }`} aria-hidden="true" />
             <label htmlFor="search-input" className="sr-only">検索キーワード</label>
             <input
@@ -717,6 +748,8 @@ const SearchPanel = ({
               } border-2 py-3.5 pl-12 pr-4 text-sm font-medium focus:outline-none transition-all ${
                 theme === 'colorful'
                   ? 'border-mste-electric-cyan/60 bg-mste-bg-dark/90 text-white placeholder-mste-electric-cyan/80 focus:border-mste-electric-cyan focus:bg-mste-bg-dark focus:shadow-mste-glow'
+                  : theme === 'colorful-light'
+                  ? 'border-mste-royal-blue/40 bg-white text-mste-grape-purple placeholder-mste-royal-blue/50 focus:border-mste-grape-purple focus:bg-white focus:shadow-lg'
                   : theme === 'gold'
                   ? `border-gold-300 bg-gold-50 text-gold-900 placeholder-gold-500 focus:border-${currentTheme.accent} focus:bg-white focus:shadow-gold-sharp`
                   : `border-stone-300 bg-stone-50 text-stone-900 placeholder-stone-500 focus:border-${currentTheme.accent} focus:bg-white focus:shadow-lg`
@@ -735,6 +768,8 @@ const SearchPanel = ({
                 } border-2 px-4 py-3.5 text-sm font-medium focus:outline-none transition-all ${
                   theme === 'colorful'
                     ? 'border-mste-electric-cyan/60 bg-mste-bg-dark/90 text-white focus:border-mste-electric-cyan focus:bg-mste-bg-dark focus:shadow-mste-glow'
+                    : theme === 'colorful-light'
+                    ? 'border-mste-royal-blue/40 bg-white text-mste-grape-purple focus:border-mste-grape-purple focus:bg-white focus:shadow-lg'
                     : theme === 'gold'
                     ? `border-gold-300 bg-gold-50 text-gold-900 focus:border-${currentTheme.accent} focus:bg-white focus:shadow-gold-sharp`
                     : `border-stone-300 bg-stone-50 text-stone-900 focus:border-${currentTheme.accent} focus:bg-white focus:shadow-lg`
@@ -752,6 +787,8 @@ const SearchPanel = ({
           } focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             theme === 'colorful'
               ? 'bg-mste-gradient hover:bg-mste-aurora shadow-mste-glow focus:ring-mste-electric-cyan'
+              : theme === 'colorful-light'
+              ? 'bg-mste-gradient hover:opacity-90 shadow-lg focus:ring-mste-electric-cyan'
               : theme === 'gold'
               ? `${currentTheme.primaryBg} hover:${currentTheme.primaryBgHover} focus:ring-${currentTheme.accent}`
               : `bg-gradient-to-r ${currentTheme.primaryBg} hover:${currentTheme.primaryBgHover} focus:ring-${currentTheme.accent}`
@@ -779,6 +816,8 @@ const ItemCard = ({ title, detail, actionLabel, links, theme }: Section["items"]
       } focus-within:ring-2 focus-within:ring-offset-2 ${
         theme === 'colorful'
           ? 'border-mste-electric-cyan/40 bg-mste-bg-dark/90 backdrop-blur-xl shadow-mste-glow focus-within:ring-mste-electric-cyan'
+          : theme === 'colorful-light'
+          ? 'border-mste-royal-blue/20 bg-gradient-to-br from-mste-electric-cyan/5 via-mste-royal-blue/5 to-mste-hot-magenta/5 backdrop-blur-xl shadow-lg focus-within:ring-mste-royal-blue'
           : theme === 'gold'
           ? 'border-gold-300 bg-gold-elegant focus-within:ring-gold-500'
           : 'border-stone-300 bg-white focus-within:ring-stone-500'
@@ -792,12 +831,14 @@ const ItemCard = ({ title, detail, actionLabel, links, theme }: Section["items"]
           <h3 className={`text-xl font-bold transition-colors ${
             theme === 'colorful' 
               ? 'text-white group-hover:text-mste-electric-cyan' 
+              : theme === 'colorful-light'
+              ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent group-hover:from-mste-electric-cyan group-hover:to-mste-hot-magenta'
               : `text-stone-900 group-hover:text-${currentTheme.accentText}`
           }`}>
             {title}
           </h3>
           <p className={`mt-3 text-sm font-semibold ${
-            theme === 'colorful' ? 'text-mste-electric-cyan/90' : 'text-stone-500'
+            theme === 'colorful' ? 'text-mste-electric-cyan/90' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'
           }`}>
             {detail}
           </p>
@@ -810,6 +851,8 @@ const ItemCard = ({ title, detail, actionLabel, links, theme }: Section["items"]
                     className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 rounded ${
                       theme === 'colorful'
                         ? 'text-mste-electric-cyan/90 hover:text-mste-electric-cyan focus:ring-mste-electric-cyan'
+                        : theme === 'colorful-light'
+                        ? 'text-mste-royal-blue hover:text-mste-grape-purple focus:ring-mste-royal-blue'
                         : `text-stone-700 hover:text-${currentTheme.accentText} focus:ring-${currentTheme.accent}`
                     }`}
                     aria-label={`${link.label}を新しいタブで開く`}
@@ -830,6 +873,8 @@ const ItemCard = ({ title, detail, actionLabel, links, theme }: Section["items"]
           } px-6 py-3 text-xs font-bold uppercase transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             theme === 'colorful'
               ? 'border-2 border-mste-electric-cyan bg-mste-bg-dark text-mste-electric-cyan hover:bg-mste-electric-cyan hover:text-mste-bg-dark shadow-mste-glow focus:ring-mste-electric-cyan'
+              : theme === 'colorful-light'
+              ? 'border-2 border-transparent bg-mste-gradient text-white hover:opacity-90 shadow-lg focus:ring-mste-electric-cyan'
               : theme === 'gold'
               ? `border-2 border-${currentTheme.accentBorder} bg-gold-elegant text-${currentTheme.accentText} hover:border-${currentTheme.accentHover} hover:${currentTheme.primaryBg} hover:text-white focus:ring-${currentTheme.accent} shadow-gold-sharp`
               : `border-2 border-${currentTheme.accentBorder} bg-white text-${currentTheme.accentText} hover:border-${currentTheme.accentHover} hover:bg-${currentTheme.accentBg} hover:text-${currentTheme.accentHover} focus:ring-${currentTheme.accent}`
@@ -855,6 +900,8 @@ const SectionPanel = ({ section, theme }: { section: Section; theme: ColorTheme 
       } ${
         theme === 'colorful'
           ? 'border-mste-electric-cyan/40 bg-mste-bg-dark/90 backdrop-blur-xl shadow-mste-glow'
+          : theme === 'colorful-light'
+          ? 'border-mste-royal-blue/20 bg-gradient-to-br from-mste-electric-cyan/10 via-mste-royal-blue/10 to-mste-grape-purple/10 backdrop-blur-xl shadow-lg'
           : theme === 'gold'
           ? 'border-gold-300 bg-gold-elegant'
           : 'border-stone-300 bg-gradient-to-br from-stone-50 to-warmGray-50'
@@ -866,13 +913,13 @@ const SectionPanel = ({ section, theme }: { section: Section; theme: ColorTheme 
           <h2 
             id={`section-${section.id}-title`}
             className={`text-3xl font-bold ${
-              theme === 'colorful' ? 'text-white' : 'text-stone-900'
+              theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue via-mste-grape-purple to-mste-hot-magenta bg-clip-text text-transparent' : 'text-stone-900'
             }`}
           >
             {section.title}
           </h2>
           <p className={`text-base font-medium ${
-            theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-700'
+            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-royal-blue' : 'text-stone-700'
           }`}>
             {section.description}
           </p>
@@ -885,6 +932,8 @@ const SectionPanel = ({ section, theme }: { section: Section; theme: ColorTheme 
           } focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             theme === 'colorful'
               ? 'border-2 border-mste-electric-cyan bg-mste-bg-dark text-mste-electric-cyan hover:bg-mste-electric-cyan hover:text-mste-bg-dark shadow-mste-glow focus:ring-mste-electric-cyan'
+              : theme === 'colorful-light'
+              ? 'border-2 border-transparent bg-mste-gradient text-white hover:opacity-90 shadow-lg focus:ring-mste-electric-cyan'
               : theme === 'gold'
               ? `border-2 border-${currentTheme.accentBorder} bg-gold-elegant text-${currentTheme.accentText} hover:border-${currentTheme.accentHover} hover:${currentTheme.primaryBg} hover:text-white focus:ring-${currentTheme.accent}`
               : `border-2 border-${currentTheme.accentBorder} bg-white text-${currentTheme.accentText} hover:border-${currentTheme.accentHover} hover:bg-${currentTheme.accentBg} hover:text-${currentTheme.accentHover} focus:ring-${currentTheme.accent}`
@@ -909,7 +958,7 @@ const SectionPanel = ({ section, theme }: { section: Section; theme: ColorTheme 
         ) : (
           <div 
             className={`text-center py-16 ${
-              theme === 'colorful' ? 'text-mste-electric-cyan/90' : 'text-stone-500'
+              theme === 'colorful' ? 'text-mste-electric-cyan/90' : theme === 'colorful-light' ? 'text-mste-electric-cyan/70' : 'text-stone-500'
             }`}
             role="status"
             aria-live="polite"
@@ -941,6 +990,8 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
         } ${
           theme === 'colorful'
             ? 'border-mste-electric-cyan/30 shadow-mste-glow'
+            : theme === 'colorful-light'
+            ? 'border-mste-royal-blue/20 shadow-lg'
             : theme === 'gold'
             ? 'border-gold-300'
             : 'border-stone-200'
@@ -954,17 +1005,17 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
           }}
         >
           <div className={`absolute inset-0 ${
-            theme === 'colorful' ? 'bg-mste-bg-dark/80' : 'bg-black/60'
+            theme === 'colorful' ? 'bg-mste-bg-dark/80' : theme === 'colorful-light' ? 'bg-gradient-to-br from-mste-electric-cyan/50 via-mste-royal-blue/50 to-mste-hot-magenta/50' : 'bg-black/60'
           }`} />
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center">
               <h1 className={`text-4xl font-bold mb-2 ${
-                theme === 'colorful' ? 'text-white' : 'text-white'
+                theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'text-white drop-shadow-lg' : 'text-white'
               }`}>
                 {program.name}
               </h1>
               <p className={`text-lg ${
-                theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-gray-200'
+                theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-white drop-shadow-md' : 'text-gray-200'
               }`}>
                 {program.genre}
               </p>
@@ -982,6 +1033,8 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
         } ${
           theme === 'colorful'
             ? 'border-mste-electric-cyan/30 bg-mste-bg-dark/80 backdrop-blur-xl shadow-mste-glow'
+            : theme === 'colorful-light'
+            ? 'border-mste-royal-blue/20 bg-white backdrop-blur-xl shadow-lg'
             : theme === 'gold'
             ? 'border-gold-300 bg-gold-elegant'
             : 'border-stone-200 bg-gradient-to-br from-stone-50 to-warmGray-50'
@@ -989,12 +1042,12 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
       >
         <div className="space-y-2">
           <h2 className={`text-2xl font-bold ${
-            theme === 'colorful' ? 'text-white' : 'text-stone-900'
+            theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-900'
           }`}>
             放送回一覧
           </h2>
           <p className={`text-sm ${
-            theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
           }`}>
             この番組の放送回を選択してください
           </p>
@@ -1010,6 +1063,8 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
               } border transition-all ${
                 theme === 'colorful'
                   ? 'border-mste-electric-cyan/30 bg-mste-bg-dark/60 hover:bg-mste-electric-cyan/20 hover:border-mste-electric-cyan/50'
+                  : theme === 'colorful-light'
+                  ? 'border-mste-royal-blue/20 bg-white hover:bg-gradient-to-r hover:from-mste-electric-cyan/10 hover:to-mste-hot-magenta/10 hover:border-mste-grape-purple/40'
                   : theme === 'gold'
                   ? 'border-gold-300 bg-gold-elegant hover:bg-gold-100 hover:border-gold-400 shadow-gold-sharp'
                   : 'border-stone-200 bg-white hover:bg-stone-50 hover:border-stone-300'
@@ -1017,16 +1072,16 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
             >
               <div className="flex items-center gap-3">
                 <Calendar className={`h-5 w-5 ${
-                  theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-500'
+                  theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'
                 }`} />
                 <div>
                   <h3 className={`text-lg font-semibold ${
-                    theme === 'colorful' ? 'text-white' : 'text-stone-900'
+                    theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-900'
                   }`}>
                     {episode.title}
                   </h3>
                   <p className={`text-sm ${
-                    theme === 'colorful' ? 'text-mste-electric-cyan/80' : 'text-stone-500'
+                    theme === 'colorful' ? 'text-mste-electric-cyan/80' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-500'
                   }`}>
                     {episode.date} {episode.time}
                   </p>
@@ -1046,6 +1101,8 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
         } ${
           theme === 'colorful'
             ? 'border-mste-electric-cyan/30 bg-mste-bg-dark/80 backdrop-blur-xl shadow-mste-glow'
+            : theme === 'colorful-light'
+            ? 'border-mste-royal-blue/20 bg-white backdrop-blur-xl shadow-lg'
             : theme === 'gold'
             ? 'border-gold-300 bg-gold-elegant'
             : 'border-stone-200 bg-gradient-to-br from-stone-50 to-warmGray-50'
@@ -1053,12 +1110,12 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
       >
         <div className="space-y-2">
           <h2 className={`text-2xl font-bold ${
-            theme === 'colorful' ? 'text-white' : 'text-stone-900'
+            theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-900'
           }`}>
             議事録一覧
           </h2>
           <p className={`text-sm ${
-            theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-600'
+            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
           }`}>
             この番組に関連する議事録を表示します
           </p>
@@ -1079,6 +1136,8 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
               } transition-all ${
                 theme === 'colorful'
                   ? 'border-mste-electric-cyan/30 bg-mste-bg-dark/80 backdrop-blur-xl shadow-mste-glow'
+                  : theme === 'colorful-light'
+                  ? 'border-mste-royal-blue/20 bg-white backdrop-blur-xl shadow-lg'
                   : theme === 'gold'
                   ? 'border-gold-300 bg-gold-elegant'
                   : 'border-stone-200 bg-white'
@@ -1089,17 +1148,19 @@ const ProgramPage = ({ program, theme, onSelectEpisode }: {
                   <h3 className={`text-lg font-semibold transition-colors ${
                     theme === 'colorful' 
                       ? 'text-white group-hover:text-mste-electric-cyan' 
+                      : theme === 'colorful-light'
+                      ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent group-hover:from-mste-grape-purple group-hover:to-mste-hot-magenta'
                       : 'text-stone-900 group-hover:text-emerald-700'
                   }`}>
                     {item.title}
                   </h3>
                   <p className={`mt-2 text-xs font-medium ${
-                    theme === 'colorful' ? 'text-mste-electric-cyan/80' : 'text-stone-400'
+                    theme === 'colorful' ? 'text-mste-electric-cyan/80' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-400'
                   }`}>
                     {item.detail}
                   </p>
                   <p className={`mt-1 text-xs ${
-                    theme === 'colorful' ? 'text-mste-electric-cyan/60' : 'text-stone-500'
+                    theme === 'colorful' ? 'text-mste-electric-cyan/60' : theme === 'colorful-light' ? 'text-mste-royal-blue' : 'text-stone-500'
                   }`}>
                     放送回: {item.episodeTitle}
                   </p>
@@ -1139,25 +1200,27 @@ const MainContent = ({ episode, theme, onBackToProgram }: { episode: Episode | n
       <div className="flex items-center justify-center h-full" role="status" aria-live="polite">
         <div className="text-center">
           <Files className={`h-20 w-20 mx-auto mb-6 ${
-            theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-400'
+            theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-400'
           }`} aria-hidden="true" />
           <h2 className={`text-2xl font-bold mb-4 ${
-            theme === 'colorful' ? 'text-white' : 'text-stone-800'
+            theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'bg-gradient-to-r from-mste-royal-blue to-mste-grape-purple bg-clip-text text-transparent' : 'text-stone-800'
           }`}>
             放送回を選択してください
           </h2>
           <p className={`text-lg font-medium ${
-            theme === 'colorful' ? 'text-mste-electric-cyan/90' : 'text-stone-600'
+            theme === 'colorful' ? 'text-mste-electric-cyan/90' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-600'
           }`}>
             左側のサイドバーから番組と放送回を選択すると、詳細情報が表示されます
           </p>
           <div className={`mt-6 p-4 rounded-lg border-2 ${
             theme === 'colorful' 
               ? 'border-mste-electric-cyan/30 bg-mste-electric-cyan/10' 
+              : theme === 'colorful-light'
+              ? 'border-mste-royal-blue/20 bg-gradient-to-r from-mste-electric-cyan/5 to-mste-hot-magenta/5'
               : 'border-stone-200 bg-stone-50'
           }`}>
             <p className={`text-sm font-medium ${
-              theme === 'colorful' ? 'text-mste-electric-cyan' : 'text-stone-700'
+              theme === 'colorful' ? 'text-mste-electric-cyan' : theme === 'colorful-light' ? 'text-mste-grape-purple' : 'text-stone-700'
             }`}>
               💡 ヒント: テレビ局名をクリックして番組一覧を表示し、番組名をクリックして放送回を選択できます
             </p>
@@ -1179,6 +1242,8 @@ const MainContent = ({ episode, theme, onBackToProgram }: { episode: Episode | n
             } text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
               theme === 'colorful'
                 ? 'text-mste-electric-cyan hover:text-white hover:bg-mste-electric-cyan/20 border border-mste-electric-cyan/30 focus:ring-mste-electric-cyan'
+                : theme === 'colorful-light'
+                ? 'text-mste-grape-purple hover:text-white hover:bg-gradient-to-r hover:from-mste-royal-blue/20 hover:to-mste-grape-purple/20 border border-mste-royal-blue/30 focus:ring-mste-royal-blue'
                 : theme === 'gold'
                 ? 'text-gold-700 hover:text-gold-800 hover:bg-gold-100 border border-gold-300 focus:ring-gold-500'
                 : 'text-stone-600 hover:text-stone-800 hover:bg-stone-100 border border-stone-300 focus:ring-stone-500'
@@ -1199,18 +1264,20 @@ const MainContent = ({ episode, theme, onBackToProgram }: { episode: Episode | n
         } ${
           theme === 'colorful'
             ? 'bg-mste-gradient border-mste-electric-cyan/50 shadow-mste-glow'
+            : theme === 'colorful-light'
+            ? 'bg-mste-gradient border-mste-hot-magenta/50 shadow-lg'
             : theme === 'gold'
             ? 'bg-gold-elegant border-gold-300'
             : 'bg-gradient-to-br from-stone-50 via-warmGray-50 to-stone-100 border-stone-300'
         }`}
       >
         <h1 className={`text-4xl font-bold mb-3 ${
-          theme === 'colorful' ? 'text-white' : 'text-stone-900'
+          theme === 'colorful' ? 'text-white' : theme === 'colorful-light' ? 'text-white' : 'text-stone-900'
         }`}>
           {episode.title}
         </h1>
         <p className={`text-lg font-semibold ${
-          theme === 'colorful' ? 'text-mste-highlight' : 'text-stone-700'
+          theme === 'colorful' ? 'text-mste-highlight' : theme === 'colorful-light' ? 'text-white/90' : 'text-stone-700'
         }`}>
           放送日時: {episode.date} {episode.time}
         </p>
@@ -1276,6 +1343,8 @@ function App() {
     <div className={`min-h-screen ${
       theme === 'colorful' 
         ? 'bg-mste-bg-dark' 
+        : theme === 'colorful-light'
+        ? 'bg-gradient-to-br from-mste-electric-cyan/10 via-mste-grape-purple/10 to-mste-hot-magenta/10'
         : theme === 'gold'
         ? 'bg-gradient-to-br from-gold-50 via-warmGray-50 to-gold-100'
         : 'bg-gradient-to-br from-stone-100 via-warmGray-100 to-stone-50'
